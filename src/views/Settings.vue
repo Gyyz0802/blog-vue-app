@@ -334,14 +334,12 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 
 const router = useRouter()
-const store = useStore()
-
 const activeSection = ref('profile')
 
-const user = computed(() => store.state.user)
+// 从 localStorage 加载用户信息
+const user = ref(JSON.parse(localStorage.getItem('user')) || { username: 'huangyiyang' })
 const userInitial = computed(() => {
   if (user.value && user.value.username) {
     return user.value.username.charAt(0).toUpperCase()
@@ -423,14 +421,15 @@ const saveSettings = () => {
   
   // 更新用户信息
   if (user.value) {
-    store.commit('SET_USER', {
+    user.value = {
       ...user.value,
       displayName: profile.displayName,
       username: profile.username,
       bio: profile.bio,
       location: profile.location,
       website: profile.website
-    })
+    }
+    localStorage.setItem('user', JSON.stringify(user.value))
   }
   
   alert('设置已保存')
@@ -473,14 +472,15 @@ const manageApps = () => {
 const deactivateAccount = () => {
   if (confirm('确定要停用账户吗？停用后可以随时恢复。')) {
     alert('账户已停用')
-    // 这里可以调用API停用账户
   }
 }
 
 const deleteAccount = () => {
   if (confirm('警告：此操作将永久删除你的账户和所有数据，无法恢复。确定要继续吗？')) {
-    if (prompt('请输入你的密码以确认删除：')) {
-      store.dispatch('logout')
+    if (prompt('请输入"删除账户"以确认删除：') === '删除账户') {
+      localStorage.removeItem('user')
+      localStorage.removeItem('isAuthenticated')
+      localStorage.removeItem('userSettings')
       router.push('/')
       alert('账户已删除')
     }

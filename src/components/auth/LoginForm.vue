@@ -66,10 +66,10 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+// 移除：import { useStore } from 'vuex'
 
 const router = useRouter()
-const store = useStore()
+// 移除：const store = useStore()
 
 const form = reactive({
   username: '',
@@ -125,7 +125,9 @@ const handleSubmit = async () => {
       email: form.username.includes('@') ? form.username : `${form.username}@example.com`
     }
     
-    store.dispatch('login', userData)
+    // 直接保存到 localStorage
+    localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem('isAuthenticated', 'true')
     
     // 跳转到首页
     router.push('/')
