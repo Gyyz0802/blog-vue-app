@@ -1,16 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-// 使用懒加载导入组件
-const Home = () => import('../views/Home.vue')
-const About = () => import('../views/About.vue')
-const Archive = () => import('../views/Archive.vue')
-const Categories = () => import('../views/Categories.vue')
-const Tags = () => import('../views/Tags.vue')
-const Friends = () => import('../views/Friends.vue')
-const Login = () => import('../views/Login.vue')
-const Register = () => import('../views/Register.vue')
-const Settings = () => import('../views/Settings.vue')
-const PostDetail = () => import('../views/PostDetail.vue')
+import Home from '../views/Home.vue'
+import About from '../views/About.vue'
+import Archive from '../views/Archive.vue'
+import Categories from '../views/Categories.vue'
+import Tags from '../views/Tags.vue'
+import Friends from '../views/Friends.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import Settings from '../views/Settings.vue'
+import PostDetail from '../views/PostDetail.vue'
 
 const routes = [
   {
@@ -56,7 +54,8 @@ const routes = [
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings
+    component: Settings,
+    meta: { requiresAuth: true }
   },
   {
     path: '/post/:id',
@@ -72,11 +71,22 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return {
-        el: to.hash,
+        selector: to.hash,
         behavior: 'smooth'
       }
     }
     return savedPosition || { top: 0 }
+  }
+})
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('isAuthenticated')
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
   }
 })
 

@@ -53,11 +53,11 @@ const result = ref('')
 
 const sides = {
   1: { x: 0, y: 0, name: "大吉" },
-  2: { x: 0, y: -90, name: "小吉" },
-  3: { x: -90, y: 0, name: "小凶" },
-  4: { x: 90, y: 0, name: "平凶" },
-  5: { x: 0, y: 90, name: "大平" },
-  6: { x: 0, y: 180, name: "平吉" }
+  2: { x: 0, y: -90, name: "平吉" },
+  3: { x: -90, y: 0, name: "小吉" },
+  4: { x: 90, y: 0, name: "大平" },
+  5: { x: 0, y: 90, name: "小凶" },
+  6: { x: 0, y: 180, name: "平凶" }
 }
 
 const diceStyle = computed(() => {

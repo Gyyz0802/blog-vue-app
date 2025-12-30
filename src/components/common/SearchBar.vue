@@ -6,7 +6,7 @@
       @input="handleSearch"
       @keydown.enter="performSearch"
       placeholder="搜索文章..."
-      aria-label="搜索文章"
+      :aria-label="搜索文章"
     />
   </div>
 </template>

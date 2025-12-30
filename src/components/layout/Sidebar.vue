@@ -3,7 +3,7 @@
     <section class="sidebar-section">
       <div class="sidebar-title">我的标签</div>
       <div class="tag-cloud">
-        <span v-for="tag in tags" :key="tag" @click="filterByTag(tag)">#{{ tag }}</span>
+        <span v-for="tag in tags" :key="tag">#{{ tag }}</span>
       </div>
     </section>
 
@@ -19,8 +19,8 @@
     <section class="sidebar-section">
       <div class="sidebar-title">社交链接</div>
       <ul class="sidebar-list">
-        <li><a href="https://github.com/huangyiyang" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://twitter.com/gyyz0802" target="_blank" rel="noopener">Twitter</a></li>
+        <li><a href="https://github.com/huangyiyang" target="_blank">GitHub</a></li>
+        <li><a href="https://twitter.com/gyyz0802" target="_blank">Twitter</a></li>
         <li><a href="#" @click.prevent="showWechat">微信 · 二维码占位</a></li>
       </ul>
     </section>
@@ -29,9 +29,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const tags = ref(['前端', 'Vue', 'TypeScript', 'AI', '效率', '生活'])
 
@@ -40,15 +37,6 @@ const hotArticles = ref([
   { id: 2, title: '写给前端的 Git 使用心法' },
   { id: 3, title: '如何搭建一套自己的知识管理系统' }
 ])
-
-const filterByTag = (tag) => {
-  // 可以跳转到标签页面或进行筛选
-  console.log('筛选标签:', tag)
-  router.push({
-    path: '/tags',
-    query: { tag }
-  })
-}
 
 const showWechat = () => {
   alert('微信二维码功能暂未实现')
@@ -101,7 +89,6 @@ const showWechat = () => {
 .tag-cloud span:hover {
   background: var(--primary-soft);
   border-color: var(--primary);
-  transform: translateY(-2px);
 }
 
 .sidebar-list {

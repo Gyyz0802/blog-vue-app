@@ -26,7 +26,7 @@ const props = defineProps({
 const router = useRouter()
 
 const coverStyle = computed(() => {
-  // 根据 post.id 生成不同的背景渐变
+  // 这里可以根据 post 数据生成不同的背景渐变
   const gradients = [
     'radial-gradient(circle at 10% 20%, #4f46e5, #0ea5e9 40%, var(--bg-card) 90%)',
     'radial-gradient(circle at 10% 20%, #6366f1, #0ea5e9 40%, var(--bg-card) 90%)',
@@ -75,7 +75,6 @@ const goToDetail = () => {
   font-weight: 600;
   margin-bottom: 6px;
   color: var(--text-main);
-  line-height: 1.4;
 }
 
 .post-card-meta {
@@ -92,8 +91,5 @@ const goToDetail = () => {
   color: var(--text-subtle);
   line-height: 1.6;
   margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 </style>
