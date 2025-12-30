@@ -54,14 +54,19 @@ const routes = [
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings,
-    meta: { requiresAuth: true }
+    component: Settings
   },
   {
     path: '/post/:id',
     name: 'PostDetail',
     component: PostDetail,
     props: true
+  },
+  // 添加一个 404 页面
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 
@@ -79,15 +84,15 @@ const router = createRouter({
   }
 })
 
-// 路由守卫
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('isAuthenticated')
-  
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login')
-  } else {
-    next()
-  }
-})
+// 移除路由守卫，暂时不需要认证检查
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = localStorage.getItem('isAuthenticated')
+//   
+//   if (to.meta.requiresAuth && !isAuthenticated) {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

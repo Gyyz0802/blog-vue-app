@@ -31,6 +31,7 @@
               target="_blank" 
               class="friend-link"
               :title="`访问 ${friend.name}`"
+              rel="noopener noreferrer"
             >
               访问链接
             </a>
@@ -55,12 +56,17 @@
         </div>
       </section>
       
-      <Dice />
+      <!-- 骰子运势部分 -->
+      <div class="daily-fortune-section">
+        <div class="fortune-title">每日运势</div>
+        <Dice />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import Dice from '../components/common/Dice.vue'
 
 const friends = ref([
@@ -184,7 +190,7 @@ const friends = ref([
 
 .friend-link {
   display: inline-block;
-  padding: 6px 16px;
+  padding: 8px 16px;
   border-radius: 999px;
   background: var(--primary);
   color: white;
@@ -192,6 +198,7 @@ const friends = ref([
   font-size: 13px;
   font-weight: 500;
   transition: all 0.3s ease;
+  margin-top: 8px;
 }
 
 .friend-link:hover {
@@ -251,6 +258,22 @@ const friends = ref([
 
 .contact-email a:hover {
   text-decoration: underline;
+}
+
+.daily-fortune-section {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.fortune-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-main);
 }
 
 @media (max-width: 768px) {
