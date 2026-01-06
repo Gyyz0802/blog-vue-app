@@ -92,10 +92,10 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+// 移除这行：import { useStore } from 'vuex'
 
 const router = useRouter()
-const store = useStore()
+// 移除这行：const store = useStore() // 错误：没有 Vuex store
 
 const form = reactive({
   username: '',
@@ -200,7 +200,9 @@ const handleSubmit = async () => {
       email: form.email
     }
     
-    store.dispatch('login', userData)
+    // 直接保存到 localStorage，不使用 Vuex
+    localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem('isAuthenticated', 'true')
     
     alert('注册成功！即将跳转到首页...')
     
