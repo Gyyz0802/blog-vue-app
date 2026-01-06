@@ -44,6 +44,11 @@
                 {{ nextPost.title }} →
               </router-link>
             </div>
+            
+            <!-- 添加评论系统 -->
+            <section class="post-comments">
+              <CommentList :post-id="postId" />
+            </section>
           </div>
 
           <aside class="post-sidebar">
@@ -118,6 +123,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import PostCard from '../components/common/PostCard.vue'
+import CommentList from '../components/comments/CommentList.vue'
 
 const route = useRoute()
 const postId = parseInt(route.params.id)
@@ -220,7 +226,6 @@ const relatedPosts = computed(() => {
 
 const filterByTag = (tag) => {
   console.log('Filter by tag:', tag)
-  // 可以跳转到标签页面
 }
 
 const scrollToAnchor = (anchorId) => {
@@ -388,6 +393,13 @@ onMounted(() => {
   margin-left: auto;
 }
 
+/* 评论区域样式 */
+.post-comments {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
 .post-sidebar {
   position: sticky;
   top: 100px;
@@ -497,5 +509,29 @@ onMounted(() => {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .post-detail {
+    padding: 20px;
+  }
+  
+  .post-title {
+    font-size: 24px;
+  }
+  
+  .post-meta {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .post-content-grid {
+    gap: 24px;
+  }
+  
+  .post-comments {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
 }
 </style>

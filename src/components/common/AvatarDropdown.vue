@@ -1,7 +1,6 @@
 <template>
   <div class="nav-avatar-dropdown" @mouseenter="showDropdown" @mouseleave="hideDropdown">
     <div class="nav-avatar" @click="toggleDropdown">
-      <!-- 可以替换为实际的头像 -->
       <div class="avatar-initial">{{ userInitial }}</div>
     </div>
     
@@ -28,14 +27,24 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'  // 改为从 vuex 导入
 
-const store = useStore()
 const router = useRouter()
 const isDropdownVisible = ref(false)
+const user = ref(null) // 本地用户状态
 let hideTimeout = null
 
-const user = computed(() => store.state.user)
+// 从 localStorage 加载用户信息
+onMounted(() => {
+  const savedUser = localStorage.getItem('user')
+  if (savedUser) {
+    try {
+      user.value = JSON.parse(savedUser)
+    } catch (e) {
+      console.error('加载用户信息失败:', e)
+    }
+  }
+})
+
 const userInitial = computed(() => {
   if (user.value && user.value.username) {
     return user.value.username.charAt(0).toUpperCase()
@@ -61,7 +70,9 @@ const toggleDropdown = () => {
 }
 
 const handleLogout = () => {
-  store.dispatch('logout')
+  user.value = null
+  localStorage.removeItem('user')
+  localStorage.removeItem('isAuthenticated')
   router.push('/')
 }
 

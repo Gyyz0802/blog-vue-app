@@ -1,5 +1,12 @@
-# Vue 3 + Vite
+## 个人博客
+>这是一个在校学生的课外作业
+## 📋 项目简介
+使用vue框架搭建的响应式个人博客网站。
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+
+##### v 1.02
+添加了每个post下的评论功能
+
+##### v 1.01
+修复了一些已知的问题...
