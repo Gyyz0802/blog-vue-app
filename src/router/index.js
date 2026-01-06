@@ -67,7 +67,13 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue')
-  }
+  },
+  {
+  path: '/comments',
+  name: 'CommentManagement',
+  component: () => import('../views/CommentManagement.vue'),
+  meta: { requiresAuth: true }
+}
 ]
 
 const router = createRouter({
